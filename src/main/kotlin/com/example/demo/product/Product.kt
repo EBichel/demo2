@@ -1,4 +1,4 @@
-package com.example.demo.book
+package com.example.demo.product
 
 import java.util.UUID
 import javax.persistence.Entity
@@ -6,11 +6,12 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "books")
-data class Book(
-  var author: String,
-  var title: String,
-  var borrowed: Boolean = false
+@Table(name = "products")
+data class Product(
+  val name: String,
+  val duration: Long,
+  val netPrice: Long,
+  val taxRate: Long
 ) {
   @Id
   val id: UUID = UUID.randomUUID()

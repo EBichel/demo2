@@ -1,7 +1,6 @@
-Demo service for managing books
+Demo service for managing subscriptions
 --
 
-Every book is a single instance and therefore several instances of the same book can exist.
 
 Run
 --
@@ -9,7 +8,7 @@ Run
 Starting db:
 ```
 docker run -it --rm \
-    -e POSTGRES_DB='book-db' \
+    -e POSTGRES_DB='demo-db' \
     -e POSTGRES_USER='postgres' \
     -e POSTGRES_PASSWORD='password' \
     -p 5432:5432 \
