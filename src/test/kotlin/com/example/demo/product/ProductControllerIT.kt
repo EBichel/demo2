@@ -4,9 +4,9 @@ import com.example.demo.AbstractControllerIT
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import java.util.*
+import java.util.UUID
 
-class ProductServiceIT : AbstractControllerIT() {
+class ProductControllerIT : AbstractControllerIT() {
 
   @Test
   fun `Products GET endpoint should return array of products`() {
@@ -39,6 +39,7 @@ class ProductServiceIT : AbstractControllerIT() {
     unauthenticated().get("/products/$productId")
       .then()
       .log().all()
+      .assertThat()
       .statusCode(HttpStatus.NOT_FOUND.value())
   }
 }
