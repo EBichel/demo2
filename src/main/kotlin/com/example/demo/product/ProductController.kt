@@ -13,12 +13,12 @@ class ProductController(
 ) {
 
   @GetMapping
-  fun listProducts(): Collection<Product> {
+  fun listProducts(): Collection<ProductDto> {
     return productService.listProducts()
   }
 
   @GetMapping("/{productId}")
-  fun getProduct(@PathVariable productId: UUID): Product {
+  fun getProduct(@PathVariable productId: UUID): ProductDto {
     return productService.getProduct(productId)
   }
 

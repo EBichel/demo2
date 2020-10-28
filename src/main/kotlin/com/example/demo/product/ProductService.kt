@@ -8,15 +8,22 @@ import java.util.UUID
 
 @Service
 class ProductService(
-  private val productRepository: ProductRepository
+  private val productRepository: ProductRepository,
+  private val productDtoConverter: ProductDtoConverter
 ) {
 
-  fun listProducts(): Collection<Product> {
-    return productRepository.findAll()
+  fun listProducts(): Collection<ProductDto> {
+    return productRepository.findAll().map { it.toDto() }
   }
 
-  fun getProduct(uuid: UUID): Product {
-    return productRepository.findById(uuid).orElseThrow { NotFoundException() }
+  fun getProduct(uuid: UUID): ProductDto {
+    return productRepository.findById(uuid)
+      .orElseThrow { NotFoundException() }
+      .toDto()
+  }
+
+  fun Product.toDto(): ProductDto {
+    return productDtoConverter.toDto(this)
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
