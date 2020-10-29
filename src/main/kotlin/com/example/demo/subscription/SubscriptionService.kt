@@ -28,7 +28,7 @@ class SubscriptionService(
     val subscription = Subscription(
       productId = productDto.id
     )
-    subscription.endDate = subscription.startDate.plus(productDto.duration, ChronoUnit.HOURS)
+    subscription.endDate = subscription.startDate.plus(productDto.duration, ChronoUnit.DAYS)
 
     return subscriptionDtoConverter.toDto(subscription, productDto)
   }

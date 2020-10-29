@@ -8,5 +8,5 @@ create table products (
 
 --- insert product mock data
 insert into products values
-	('15993ed6-d4be-4ebc-b235-18b3cf1ccf6a', 'cheap subscription', 3600, 9999, 1600),
-	('b41062aa-4c5c-4d8e-a54f-c4a6ef072181', 'expensive subscription', 3600, 19999, 1600);
+	('15993ed6-d4be-4ebc-b235-18b3cf1ccf6a', 'cheap subscription', 14, 9999, 1600),
+	('b41062aa-4c5c-4d8e-a54f-c4a6ef072181', 'expensive subscription', 30, 19999, 1600);

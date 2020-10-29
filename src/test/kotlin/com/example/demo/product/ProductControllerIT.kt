@@ -28,7 +28,7 @@ class ProductControllerIT : AbstractControllerIT() {
       .statusCode(HttpStatus.OK.value())
       .assertThat()
       .body("name", equalTo("cheap subscription"))
-      .body("duration", equalTo(3600))
+      .body("duration", equalTo(14))
       .body("netPrice", equalTo(9999))
       .body("taxRate", equalTo(1600))
   }
