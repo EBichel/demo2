@@ -25,7 +25,10 @@ class SubscriptionControllerIT : AbstractControllerIT() {
 
   @Test
   fun `GET subscription by id should return subscription`() {
-    val subscription = subscriptionRepository.save(Subscription(anyProductId))
+    val subscription = subscriptionRepository.save(
+      Subscription(anyProductId)
+        .also { it.endDate = it.startDate.plusSeconds(5000) }
+    )
 
     unauthenticated()
       .get("/subscriptions/${subscription.id}")
@@ -49,9 +52,10 @@ class SubscriptionControllerIT : AbstractControllerIT() {
 
   @Test
   fun `PATCH subscription by id return updated subscription`() {
-    val subscription = subscriptionRepository.save(Subscription(
-      anyProductId
-    ))
+    val subscription = subscriptionRepository.save(
+      Subscription(anyProductId)
+        .also { it.endDate = it.startDate.plusSeconds(5000) }
+    )
 
     val updateSubscriptionDto = UpdateSubscriptionDto(
       active = false,

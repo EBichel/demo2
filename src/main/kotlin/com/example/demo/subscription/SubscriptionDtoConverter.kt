@@ -12,7 +12,7 @@ class SubscriptionDtoConverter {
       id = subscription.id,
       productId = subscription.productId,
       startDate = LocalDate.ofInstant(subscription.startDate, UTC),
-      endDate = LocalDate.ofInstant(subscription.endDate, UTC),
+      endDate = subscription.endDate?.let { LocalDate.ofInstant(subscription.endDate, UTC) },
       active = subscription.active,
       paused = subscription.paused,
       grossPrice = productDto.grossPrice,

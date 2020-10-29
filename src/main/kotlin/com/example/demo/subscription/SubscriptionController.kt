@@ -16,14 +16,14 @@ class SubscriptionController(
 ){
 
   @GetMapping("/{subscriptionId}")
-  fun getSubscription(@PathVariable subscriptionId: UUID): Subscription {
+  fun getSubscription(@PathVariable subscriptionId: UUID): SubscriptionDto {
     return subscriptionService.getSubscription(subscriptionId)
   }
 
   @PostMapping
   fun createSubscription(
     @RequestBody createSubscriptionDto: CreateSubscriptionDto
-  ): Subscription {
+  ): SubscriptionDto {
     return subscriptionService.createSubscription(createSubscriptionDto)
   }
 
@@ -31,7 +31,7 @@ class SubscriptionController(
   fun updateSubscription(
     @PathVariable subscriptionId: UUID,
     @RequestBody updateSubscriptionDto: UpdateSubscriptionDto
-  ): Subscription {
+  ): SubscriptionDto {
     return subscriptionService.updateSubscription(subscriptionId, updateSubscriptionDto)
   }
 

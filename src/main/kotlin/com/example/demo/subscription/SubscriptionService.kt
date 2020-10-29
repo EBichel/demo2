@@ -11,34 +11,41 @@ import java.util.UUID
 @Service
 class SubscriptionService(
   private val subscriptionRepository: SubscriptionRepository,
-  private val productService: ProductService
+  private val productService: ProductService,
+  private val subscriptionDtoConverter: SubscriptionDtoConverter
 ) {
 
-  fun getSubscription(subscriptionId: UUID): Subscription {
-    return subscriptionRepository.findById(subscriptionId)
+  fun getSubscription(subscriptionId: UUID): SubscriptionDto {
+    val subscription = subscriptionRepository.findById(subscriptionId)
       .orElseThrow { NotFoundException() }
+    val productDto = productService.getProduct(subscription.productId)
+
+    return subscriptionDtoConverter.toDto(subscription, productDto)
   }
 
-  fun createSubscription(createSubscriptionDto: CreateSubscriptionDto): Subscription {
-    val product = productService.getProduct(createSubscriptionDto.productId)
-    val subscription =  Subscription(
-      productId = product.id
+  fun createSubscription(createSubscriptionDto: CreateSubscriptionDto): SubscriptionDto {
+    val productDto = productService.getProduct(createSubscriptionDto.productId)
+    val subscription = Subscription(
+      productId = productDto.id
     )
-   subscription.endDate = subscription.startDate.plus(product.duration, ChronoUnit.HOURS)
-    return subscriptionRepository.save(subscription)
+    subscription.endDate = subscription.startDate.plus(productDto.duration, ChronoUnit.HOURS)
+
+    return subscriptionDtoConverter.toDto(subscription, productDto)
   }
 
   fun updateSubscription(
     subscriptionId: UUID,
     updateSubscriptionDto: UpdateSubscriptionDto
-  ): Subscription {
+  ): SubscriptionDto {
     val subscription = subscriptionRepository.findById(subscriptionId)
       .orElseThrow { NotFoundException() }
+    val productDto = productService.getProduct(subscription.productId)
 
     updateSubscriptionDto.active?.let { subscription.active = it }
     updateSubscriptionDto.paused?.let { subscription.paused = it }
 
-    return subscriptionRepository.save(subscription)
+    val storedSubscription = subscriptionRepository.save(subscription)
+    return subscriptionDtoConverter.toDto(storedSubscription, productDto)
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
